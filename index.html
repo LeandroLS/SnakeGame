@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Snake Game</title>
+    <style type="text/css">
+        canvas { border: 1px solid black; }
+    </style>
+</head>
+
+<body onload="draw()">
+   <canvas id="canvas" width="400" height="400"></canvas>
+</body>
+<script>
+
+    let directionSnake = {
+        x : 0, 
+        y : 0,
+        lastDirection : ''
+    };
+    let defaultDirection = 'ArrowRight';
+
+    function draw(){
+        let canvas = document.getElementById("canvas");
+        let context = canvas.getContext('2d');
+        listenUserKeyboards();
+        setInterval(() => {
+            context.clearRect(0, 0, 400, 400);
+            drawGrade(context);
+            decideDirection(null);
+            drawBox(context, directionSnake);
+            context.save();
+            context.restore();
+        }, 200);
+        
+    }
+
+    function drawBox(context, directionSnake){
+        context.fillRect(directionSnake.x, directionSnake.y, 20, 20);
+    }
+
+    function drawGrade(context){
+        drawLinesHorizontal(context);
+        drawLinesVertical(context);
+    }
+
+    function drawLinesHorizontal(context){
+      
+        let boxSize = 20;
+        let stageWidth = canvas.offsetWidth;
+        let repeatGradeBox = stageWidth / boxSize;
+        for(let i = 0; i < repeatGradeBox; i++){
+            context.beginPath();
+            context.moveTo(0, boxSize);
+            context.lineTo(400, boxSize);
+            context.stroke();
+            context.fill();
+            boxSize += 20;
+        }
+    }
+
+    function drawLinesVertical(context){
+        let boxSize = 20;
+        let stageWidth = canvas.offsetWidth;
+        let repeatGradeBox = stageWidth / boxSize;
+        
+        for(let i = 0; i < repeatGradeBox; i++){
+            context.beginPath();
+            context.moveTo(boxSize, 0);
+            context.lineTo(boxSize, 400);
+            context.stroke();
+            context.fill();
+            boxSize += 20;
+        }
+    }
+
+    function listenUserKeyboards(){
+        document.addEventListener('keydown',(event) => {
+            decideDirection(event);
+        });
+    }
+
+    function decideDirection(event){
+        let direcao = (!event ? defaultDirection : event.key);
+        
+        if(event == null) direcao = directionSnake.lastDirection;
+        
+        if(direcao == "ArrowRight"){
+            directionSnake.x+=20;
+            directionSnake.lastDirection = 'ArrowRight';
+
+        }
+        
+        if(direcao == "ArrowLeft"){
+            directionSnake.x-=20;
+            directionSnake.lastDirection = 'ArrowLeft';
+        }
+        
+        if(direcao == "ArrowDown"){
+            directionSnake.y+=20;
+            directionSnake.lastDirection = 'ArrowDown';
+        }
+
+        if(direcao == "ArrowUp"){
+            directionSnake.y-=20;
+            directionSnake.lastDirection = 'ArrowUp';
+        }
+
+    }
+</script>
+</html>
