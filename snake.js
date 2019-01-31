@@ -1,9 +1,11 @@
 let directionSnake = {
     x : 0, 
     y : 0,
-    lastDirection : ''
+    lastDirection : 'ArrowRight'
 };
 let defaultDirection = 'ArrowRight';
+let direction = null;
+
 function draw(){
     let canvas = document.getElementById("canvas");
     let context = canvas.getContext('2d');
@@ -11,10 +13,12 @@ function draw(){
     setInterval(() => {
         context.clearRect(0, 0, 400, 400);
         drawGrade(context);
-        moveSnake(context, decideDirection());
+        moveSnake(context, decideDirection(direction));
+        generateFood(context);
         context.save();
         context.restore();
     }, 100);
+
     
 }
 
@@ -53,7 +57,7 @@ function drawLinesVertical(context){
 
 function listenUserKeyboards(){
     document.addEventListener('keydown',(event) => {
-        decideDirection(event);
+        direction = event;
     });
 }
 
@@ -61,22 +65,38 @@ function decideDirection(event = null){
     let direcao = (!event ? defaultDirection : event.key);
     if(event == null) direcao = directionSnake.lastDirection;
     
-    if(direcao == "ArrowRight" && directionSnake.lastDirection != "ArrowLeft"){
-        directionSnake.lastDirection = 'ArrowRight';
+    if(direcao == "ArrowRight"){
+        if(directionSnake.lastDirection == "ArrowLeft"){
+            direcao = "ArrowLeft";
+            directionSnake.lastDirection = "ArrowLeft"
+        } else {
+            directionSnake.lastDirection = "ArrowRight"
+        }
     }
-    
-    if(direcao == "ArrowLeft" && directionSnake.lastDirection != "ArrowRight"){
-        directionSnake.lastDirection = 'ArrowLeft';
+    if(direcao == "ArrowLeft"){
+        if(directionSnake.lastDirection == "ArrowRight"){
+            direcao = "ArrowRight";
+            directionSnake.lastDirection = "ArrowRight"
+        } else {
+            directionSnake.lastDirection = "ArrowLeft"
+        }
     }
-    
-    if(direcao == "ArrowDown" && directionSnake.lastDirection != "ArrowUp"){
-        directionSnake.lastDirection = 'ArrowDown';
+    if(direcao == "ArrowUp"){
+        if(directionSnake.lastDirection == "ArrowDown"){
+            direcao = "ArrowDown";
+            directionSnake.lastDirection = "ArrowDown"
+        } else {
+            directionSnake.lastDirection = "ArrowUp"
+        }
     }
-
-    if(direcao == "ArrowUp" && directionSnake.lastDirection != "ArrowDown"){
-        directionSnake.lastDirection = 'ArrowUp';
+    if(direcao == "ArrowDown"){
+        if(directionSnake.lastDirection == "ArrowUp"){
+            direcao = "ArrowUp";
+            directionSnake.lastDirection = "ArrowUp"
+        } else {
+            directionSnake.lastDirection = "ArrowDown"
+        }
     }
-
     return direcao;
 }
 
@@ -97,12 +117,12 @@ function moveSnake(context, direcao){
         directionSnake.y-=20;
     }
 
-    teleportSnake();
+    dontColideWithEndOfCanvas();
 
     context.fillRect(directionSnake.x, directionSnake.y, 20, 20);
 }
 
-function teleportSnake(){
+function dontColideWithEndOfCanvas(){
     if(directionSnake.x == canvas.width){
         directionSnake.x = 0;
     }
@@ -117,3 +137,8 @@ function teleportSnake(){
     }
 }
 
+function generateFood(context){
+    let randomNumberX = Math.floor(Math.random() * 400);
+    let randomNumberY = Math.floor(Math.random() * 400);
+    context.fillRect(80, 80, 20, 20);
+}
