@@ -5,6 +5,7 @@ let directionSnake = {
 };
 let defaultDirection = 'ArrowRight';
 let direction = null;
+let randomNumber = calculateRandomNumber();
 
 function draw(){
     let canvas = document.getElementById("canvas");
@@ -14,12 +15,10 @@ function draw(){
         context.clearRect(0, 0, 400, 400);
         drawGrade(context);
         moveSnake(context, decideDirection(direction));
-        generateFood(context);
+        generateFood(context, false);
         context.save();
         context.restore();
     }, 100);
-
-    
 }
 
 function drawGrade(context){
@@ -137,8 +136,26 @@ function dontColideWithEndOfCanvas(){
     }
 }
 
-function generateFood(context){
-    let randomNumberX = Math.floor(Math.random() * 400);
-    let randomNumberY = Math.floor(Math.random() * 400);
-    context.fillRect(80, 80, 20, 20);
+function generateFood(context, wasEaten){
+    if(wasEaten){
+       randomNumber = calculateRandomNumber();
+    }
+    context.fillRect(randomNumber.x, randomNumber.y, 20, 20);
+}
+
+function calculateRandomNumber(){
+    let x = Math.floor(Math.random() * 400);
+    let y = Math.floor(Math.random() * 400);
+    let restOfDivisionX = x % 20;
+    let restOfDivisionY = y % 20;
+    
+    if(restOfDivisionX != 0){
+        x -= restOfDivisionX;
+    }
+
+    if(restOfDivisionY != 0){
+        y -= restOfDivisionY;
+    }
+
+    return randomNumer = { x, y };
 }
