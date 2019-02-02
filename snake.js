@@ -1,12 +1,11 @@
-let directionSnake = {
-    x : 0, 
-    y : 0,
-    lastDirection : 'ArrowRight'
-};
-let defaultDirection = 'ArrowRight';
+let snake = {
+    directionX : 0,
+    directionY : 0,
+    lastDirection : 'ArrowRight',
+    size: 1
+}
 let direction = null;
 let randomNumber = calculateRandomNumber();
-
 function draw(){
     let canvas = document.getElementById("canvas");
     let context = canvas.getContext('2d');
@@ -16,6 +15,7 @@ function draw(){
         drawGrade(context);
         moveSnake(context, decideDirection(direction));
         generateFood(context, false);
+        eat(context,checkColisionWithFood());
         context.save();
         context.restore();
     }, 100);
@@ -61,39 +61,38 @@ function listenUserKeyboards(){
 }
 
 function decideDirection(event = null){
-    let direcao = (!event ? defaultDirection : event.key);
-    if(event == null) direcao = directionSnake.lastDirection;
+    let direcao = (!event ? snake.lastDirection : event.key);
     
     if(direcao == "ArrowRight"){
-        if(directionSnake.lastDirection == "ArrowLeft"){
+        if(snake.lastDirection == "ArrowLeft"){
             direcao = "ArrowLeft";
-            directionSnake.lastDirection = "ArrowLeft"
+            snake.lastDirection = "ArrowLeft"
         } else {
-            directionSnake.lastDirection = "ArrowRight"
+            snake.lastDirection = "ArrowRight"
         }
     }
     if(direcao == "ArrowLeft"){
-        if(directionSnake.lastDirection == "ArrowRight"){
+        if(snake.lastDirection == "ArrowRight"){
             direcao = "ArrowRight";
-            directionSnake.lastDirection = "ArrowRight"
+            snake.lastDirection = "ArrowRight"
         } else {
-            directionSnake.lastDirection = "ArrowLeft"
+            snake.lastDirection = "ArrowLeft"
         }
     }
     if(direcao == "ArrowUp"){
-        if(directionSnake.lastDirection == "ArrowDown"){
+        if(snake.lastDirection == "ArrowDown"){
             direcao = "ArrowDown";
-            directionSnake.lastDirection = "ArrowDown"
+            snake.lastDirection = "ArrowDown"
         } else {
-            directionSnake.lastDirection = "ArrowUp"
+            snake.lastDirection = "ArrowUp"
         }
     }
     if(direcao == "ArrowDown"){
-        if(directionSnake.lastDirection == "ArrowUp"){
+        if(snake.lastDirection == "ArrowUp"){
             direcao = "ArrowUp";
-            directionSnake.lastDirection = "ArrowUp"
+            snake.lastDirection = "ArrowUp"
         } else {
-            directionSnake.lastDirection = "ArrowDown"
+            snake.lastDirection = "ArrowDown"
         }
     }
     return direcao;
@@ -101,38 +100,38 @@ function decideDirection(event = null){
 
 function moveSnake(context, direcao){
     if(direcao == "ArrowRight"){
-        directionSnake.x+=20;
+        snake.directionX+=20;
     }
     
     if(direcao == "ArrowLeft"){
-        directionSnake.x-=20;
+        snake.directionX-=20;
     }
     
     if(direcao == "ArrowDown"){
-        directionSnake.y+=20;
+        snake.directionY+=20;
     }
 
     if(direcao == "ArrowUp"){
-        directionSnake.y-=20;
+        snake.directionY-=20;
     }
 
     dontColideWithEndOfCanvas();
 
-    context.fillRect(directionSnake.x, directionSnake.y, 20, 20);
+    context.fillRect(snake.directionX, snake.directionY, 20, 20);
 }
 
 function dontColideWithEndOfCanvas(){
-    if(directionSnake.x == canvas.width){
-        directionSnake.x = 0;
+    if(snake.directionX == canvas.width){
+        snake.directionX = 0;
     }
-    if(directionSnake.x == -20){
-        directionSnake.x = canvas.width;
+    if(snake.directionX == -20){
+        snake.directionX = canvas.width;
     }
-    if(directionSnake.y == canvas.height){
-        directionSnake.y = 0;
+    if(snake.directionY == canvas.height){
+        snake.directionY = 0;
     }
-    if(directionSnake.y == -20){
-        directionSnake.y = canvas.height;
+    if(snake.directionY == -20){
+        snake.directionY = canvas.height;
     }
 }
 
@@ -159,3 +158,24 @@ function calculateRandomNumber(){
 
     return randomNumer = { x, y };
 }
+function checkColisionWithFood(){
+    if(snake.directionX == randomNumber.x && snake.directionY == randomNumber.y){
+        return true;
+    }
+}
+function eat(context, eated){
+    if(eated){
+        generateFood(context,true);
+        increaseSnakeSize(context);
+    }
+}
+
+function increaseSnakeSize(){
+    snake.size += 1;
+}
+
+// function listenSnakeMoviments(){
+//     if(snake.size > 1){
+//         if()
+//     }
+// }
