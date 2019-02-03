@@ -17,7 +17,7 @@ function draw(){
         moveSnake(context, decideDirection(direction));
         generateFood(context, false);
         eat(context,checkColisionWithFood());
-        listenSnakeMoviments(context);
+        listenSnakeTrail(context);
         checkColisionWithSnakeSelf();
         context.save();
         context.restore();
@@ -169,17 +169,13 @@ function checkColisionWithFood(){
 function eat(context, eated){
     if(eated){
         generateFood(context,true);
-        increaseSnakeSize(context);
+        snake.size += 1;
     }
 }
 
-function increaseSnakeSize(){
-    snake.size += 1;
-}
-
-function listenSnakeMoviments(context){
+function listenSnakeTrail(context){
     snake.body.push({x : snake.directionX, y : snake.directionY});
-    if(snake.size < snake.body.length){
+    if(snake.size < (snake.body.length)){
         snake.body.shift();
     }
     snake.body.forEach(element => {
@@ -189,11 +185,8 @@ function listenSnakeMoviments(context){
 
 function checkColisionWithSnakeSelf(){
     snake.body.forEach((element, index) => {
-        console.log(index);
-        console.log(element);
-        console.log(snake);
-        if(element.x == snake.directionX && element.y == snake.directionY && index != 0){
-            console.log('colidiu');
+        if(element.x == snake.directionX && element.y == snake.directionY && index != snake.body.length-1){
+            alert("Game Over");
         }
     });
 }
