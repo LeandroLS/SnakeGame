@@ -196,6 +196,7 @@ function checkColisionWithSnakeSelf(){
     snake.body.forEach((element, index) => {
         if(element.x == snake.directionX && element.y == snake.directionY && index != snake.body.length-1){
             alert("Game Over");
+            location.reload();
         }
     });
 }
