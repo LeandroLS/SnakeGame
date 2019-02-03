@@ -2,7 +2,8 @@ let snake = {
     directionX : 0,
     directionY : 0,
     lastDirection : 'ArrowRight',
-    size: 1
+    size: 1,
+    body: []
 }
 let direction = null;
 let randomNumber = calculateRandomNumber();
@@ -16,6 +17,8 @@ function draw(){
         moveSnake(context, decideDirection(direction));
         generateFood(context, false);
         eat(context,checkColisionWithFood());
+        listenSnakeMoviments(context);
+        checkColisionWithSnakeSelf();
         context.save();
         context.restore();
     }, 100);
@@ -174,8 +177,23 @@ function increaseSnakeSize(){
     snake.size += 1;
 }
 
-// function listenSnakeMoviments(){
-//     if(snake.size > 1){
-//         if()
-//     }
-// }
+function listenSnakeMoviments(context){
+    snake.body.push({x : snake.directionX, y : snake.directionY});
+    if(snake.size < snake.body.length){
+        snake.body.shift();
+    }
+    snake.body.forEach(element => {
+        context.fillRect(element.x, element.y, 20,20);
+    });
+}
+
+function checkColisionWithSnakeSelf(){
+    snake.body.forEach((element, index) => {
+        console.log(index);
+        console.log(element);
+        console.log(snake);
+        if(element.x == snake.directionX && element.y == snake.directionY && index != 0){
+            console.log('colidiu');
+        }
+    });
+}
