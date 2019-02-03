@@ -9,10 +9,21 @@
         canvas { border: 1px solid black; }
     </style>
 </head>
-
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif
+    }
+</style>
 <body onload="draw()">
     <div style="margin: 0 auto; width: 400px">
+        <h1 style="text-align: center">JavaScript <span style="color: green"> Snake </span> Game</h1>
         <canvas id="canvas" width="400" height="400"></canvas>
+        <p style="font-weight: bold">Tamanho: <span id="snakeSize">1</span></p> 
+        <p>Desenvolvido por <a href="https://leandrols.github.io">Leandro Lima</a></p>
+        <ul>
+            <li><a href="https://github.com/LeandroLS/SnakeGame" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/llimasilva/" target="_blank">Linkedin</a></li>
+        </ul>
     </div>
 </body>
 <script src="snake.js"></script>

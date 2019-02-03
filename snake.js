@@ -1,3 +1,7 @@
+UISnakeSize = document.getElementById("snakeSize");
+let appleImg = new Image();
+appleImg.src = 'apple.png';
+let beep = new Audio('beep.mp3');
 let snake = {
     directionX : 0,
     directionY : 0,
@@ -59,7 +63,9 @@ function drawLinesVertical(context){
 
 function listenUserKeyboards(){
     document.addEventListener('keydown',(event) => {
-        direction = event;
+        if(event.key == "ArrowUp" || event.key == "ArrowDown" || event.key == "ArrowRight" || event.key == "ArrowLeft"){
+            direction = event;
+        }
     });
 }
 
@@ -119,7 +125,7 @@ function moveSnake(context, direcao){
     }
 
     dontColideWithEndOfCanvas();
-
+    context.fillStyle = 'green';
     context.fillRect(snake.directionX, snake.directionY, 20, 20);
 }
 
@@ -142,7 +148,8 @@ function generateFood(context, wasEaten){
     if(wasEaten){
        randomNumber = calculateRandomNumber();
     }
-    context.fillRect(randomNumber.x, randomNumber.y, 20, 20);
+    context.drawImage(appleImg, randomNumber.x, randomNumber.y);
+    // context.fillRect(randomNumber.x, randomNumber.y, 20, 20);
 }
 
 function calculateRandomNumber(){
@@ -170,6 +177,8 @@ function eat(context, eated){
     if(eated){
         generateFood(context,true);
         snake.size += 1;
+        UISnakeSize.innerHTML = snake.size;
+        beep.play();
     }
 }
 
