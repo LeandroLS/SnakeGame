@@ -5,29 +5,13 @@ let interval = 100;
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
 
-class Snake {
-    constructor(context, posicaoX = 0, posicaoY = 0, direction = "ArrowRight", sizeInPx){
-        this.context = context;
-        this.posicaoX = posicaoX;
-        this.posicaoY = posicaoY;
-        this.direction = direction;
-        this.sizeInPx = sizeInPx;
-    }
+snake.sizeInPx = boxSize;
 
-    moveSnake(){
-        if(this.direction == "ArrowRight"){
-            this.posicaoX += sizeInPx;
-        }
-    }
-}
-
-let snake = new Snake();
-snake.context = context;
 function draw(){
     setInterval(() => {
         drawLinesHorizontal(context, boxSize);
         drawLinesVertical(context, boxSize);
-        
+        snake.moveSnake();
     }, interval);
 }
 

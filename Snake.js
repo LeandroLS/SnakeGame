@@ -1,5 +1,3 @@
-let expect = require('chai').expect;
-
 class Snake {
     constructor(context, posicaoX = 0, posicaoY = 0, direction = "ArrowRight", sizeInPx = 20){
         this.context = context;
@@ -16,12 +14,3 @@ class Snake {
     }
 }
 let snake = new Snake();
-
-describe('Snake', function () {
-    describe('moveSnake()', function () {
-        it('Se passado sem parametros, deve acrescentar 20 na posição X da cobra', function () {
-            snake.moveSnake();
-            expect(snake.posicaoX).to.equal(20);
-        });
-    });
-});
