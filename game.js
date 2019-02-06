@@ -6,13 +6,31 @@ let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
 
 snake.sizeInPx = boxSize;
+snake.context = context;
 
 function draw(){
+    listenUserKeyBoards();
     setInterval(() => {
+        context.clearRect(0,0, canvasWidth, canvasHeight);
         drawLinesHorizontal(context, boxSize);
         drawLinesVertical(context, boxSize);
-        snake.moveSnake();
+        snake.drawSnake();
+        context.save();
+        context.restore();
     }, interval);
+}
+
+/** Return the user key pressed that matches the array */
+function listenUserKeyBoards(){
+    document.addEventListener('keydown', (event) => {
+        let justListen = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+        let keypressed = justListen.find((element) => {
+            return element == event.key;
+        });
+        if(keypressed != null && keypressed != 'undefined'){
+            snake.direction = keypressed;
+        }
+    });
 }
 
 function drawLinesHorizontal(context, boxSize){
