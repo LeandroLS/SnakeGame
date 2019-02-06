@@ -7,16 +7,25 @@ let context = canvas.getContext("2d");
 
 snake.sizeInPx = boxSize;
 snake.context = context;
+snake.canvasHeight = canvasHeight;
+snake.canvasWidth = canvasWidth;
+
+food.boxSize = boxSize;
+food.context = context;
+food.canvasHeight = canvasHeight;
+food.canvasWidth = canvasWidth;
 
 function draw(){
     listenUserKeyBoards();
+    food.generateRandomFoodPosition();
     setInterval(() => {
         context.clearRect(0,0, canvasWidth, canvasHeight);
         drawLinesHorizontal(context, boxSize);
         drawLinesVertical(context, boxSize);
+        food.generateFood();
+        food.detectColisionWithFood(snake.positionX, snake.positionY);
         snake.drawSnake();
         context.save();
-        context.restore();
     }, interval);
 }
 

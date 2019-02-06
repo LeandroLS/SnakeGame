@@ -1,5 +1,5 @@
 class Snake {
-    constructor(context, positionX = 0, positionY = 0, direction = "ArrowRight", lastDirection = "ArrowRight", sizeInPx = 20, canvasWidth = 400, canvasHeight = 400){
+    constructor(context, positionX = 0, positionY = 0, direction = "ArrowRight", lastDirection = "ArrowRight", sizeInPx = 20, canvasWidth, canvasHeight){
         this.context = context;
         this.positionX = positionX;
         this.positionY = positionY;
@@ -83,4 +83,5 @@ class Snake {
         context.fillRect(this.positionX, this.positionY, this.sizeInPx, this.sizeInPx);
     }
 }
+
 let snake = new Snake();

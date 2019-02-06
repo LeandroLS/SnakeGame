@@ -1,3 +1,8 @@
+snake.canvasWidth = canvasWidth;
+snake.canvasHeight = canvasHeight;
+food.boxSize = boxSize;
+food.canvasHeight = canvasHeight;
+food.canvasWidth = canvasWidth;
 describe("Snake", () => {
     describe("filterDirection()", () => {
         it("Should filter snake direction", () => {
@@ -60,6 +65,19 @@ describe("Snake", () => {
             snake.positionY = 401;
             snake.dontColideWithEndOfCanvas();
             chai.expect(snake.positionY).to.equal(0);
+        });
+    });
+});
+
+describe("Food", () => {
+    describe("generateRandomFoodPosition()", () => {
+        it("Should generate a random number position in canvas width and height", () => {
+        
+            food.generateRandomFoodPosition();
+            chai.expect(food.randomNumberX).to.be.below(canvasWidth);
+            chai.expect(food.randomNumberX).to.be.above(0);
+            chai.expect(food.randomNumberY).to.be.below(canvasHeight);
+            chai.expect(food.randomNumberY).to.be.above(0);
         });
     });
 });
