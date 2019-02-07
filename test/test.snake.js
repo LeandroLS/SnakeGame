@@ -55,16 +55,26 @@ describe("Snake", () => {
         it("Should make end of canvas not blockable.", () => {
             snake.positionX = -1;
             snake.dontColideWithEndOfCanvas();
-            chai.expect(snake.positionX).to.equal(400);
+            chai.expect(snake.positionX).to.equal(-1);
             snake.positionX = 401;
             snake.dontColideWithEndOfCanvas();
-            chai.expect(snake.positionX).to.equal(0);
+            chai.expect(snake.positionX).to.equal(-20);
             snake.positionY = -1;
             snake.dontColideWithEndOfCanvas();
-            chai.expect(snake.positionY).to.equal(400);
+            chai.expect(snake.positionY).to.equal(-1);
             snake.positionY = 401;
             snake.dontColideWithEndOfCanvas();
-            chai.expect(snake.positionY).to.equal(0);
+            chai.expect(snake.positionY).to.equal(-20);
+        });
+    });
+
+    describe("getSnakeTrail()", () => {
+        it("Should get the path that the snake is taking.", () => {
+            snake.getSnakeTrail();
+            chai.expect(snake.tail).to.have.lengthOf(1);
+            snake.tail.push(['1', '2', '3']);
+            snake.size = 2;
+            chai.expect(snake.tail).to.have.lengthOf(snake.size);
         });
     });
 });

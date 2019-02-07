@@ -1,5 +1,5 @@
 class Snake {
-    constructor(context, positionX = 0, positionY = 0, direction = "ArrowRight", lastDirection = "ArrowRight", sizeInPx = 20, canvasWidth, canvasHeight){
+    constructor(context, positionX = 0, positionY = 0, direction = "ArrowRight", lastDirection = "ArrowRight", sizeInPx = 20, canvasWidth, canvasHeight, size = 1){
         this.context = context;
         this.positionX = positionX;
         this.positionY = positionY;
@@ -8,19 +8,21 @@ class Snake {
         this.lastDirection = lastDirection;
         this.canvasHeight = canvasHeight;
         this.canvasWidth = canvasWidth;
+        this.size = size;
+        this.tail = [];
     }
     
     dontColideWithEndOfCanvas() {
         if(snake.positionX >= this.canvasWidth){
-            snake.positionX = 0;
+            snake.positionX = -this.sizeInPx;
         }
-        if(snake.positionX < 0){
+        if(snake.positionX < (-this.sizeInPx)){
             snake.positionX = this.canvasWidth;
         }
         if(snake.positionY >= this.canvasHeight){
-            snake.positionY = 0;
+            snake.positionY = -this.sizeInPx;
         }
-        if(snake.positionY < 0){
+        if(snake.positionY < (-this.sizeInPx)){
             snake.positionY = this.canvasHeight;
         }
         
@@ -63,24 +65,45 @@ class Snake {
 
     moveSnake(){
         if(this.direction == "ArrowRight"){
-            snake.positionX+=20;
+            this.positionX+=20;
         }
         if(this.direction == "ArrowLeft"){
-            snake.positionX-=20;
+            this.positionX-=20;
         }
         if(this.direction == "ArrowDown"){
-            snake.positionY+=20;
+            this.positionY+=20;
         }
         if(this.direction == "ArrowUp"){
-            snake.positionY-=20;
+            this.positionY-=20;
         }    
+    }
+
+    isCollidingFood(result){
+        if(result){
+            this.size += 1;
+        }
+    }
+
+    getSnakeTrail(){
+        this.tail.push({ x : this.positionX, y : this.positionY });
+        if(this.tail.length >= (this.size+1)){
+            this.tail.shift();
+        }
+    }
+
+    drawTail(){
+        this.tail.forEach((element) => {
+            this.context.fillRect(element.x, element.y, this.sizeInPx, this.sizeInPx);
+        });
     }
 
     drawSnake(){
         this.dontColideWithEndOfCanvas();
         this.filterDirection();
         this.moveSnake();
-        context.fillRect(this.positionX, this.positionY, this.sizeInPx, this.sizeInPx);
+        this.getSnakeTrail();
+        this.drawTail();
+        this.context.fillRect(this.positionX, this.positionY, this.sizeInPx, this.sizeInPx);
     }
 }
 

@@ -7,12 +7,18 @@ class Food {
         this.randomNumberX = null;
         this.randomNumberY = null;
     }
-    detectColisionWithFood(positionX, positionY){
+
+    isColliding(positionX, positionY){
         if(positionX == this.randomNumberX && positionY == this.randomNumberY){
             this.generateRandomFoodPosition();
+            return true;
+        } else {
+            return false;
         }
     }
+
     generateFood(){
+       
         this.context.fillRect(this.randomNumberX, this.randomNumberY, this.boxSize, this.boxSize);
     }
     

@@ -5,6 +5,8 @@ let interval = 100;
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
 
+let beepSound = new Audio('beep.mp3');
+
 snake.sizeInPx = boxSize;
 snake.context = context;
 snake.canvasHeight = canvasHeight;
@@ -15,6 +17,8 @@ food.context = context;
 food.canvasHeight = canvasHeight;
 food.canvasWidth = canvasWidth;
 
+let pSpan = document.getElementById('snakeSize');
+
 function draw(){
     listenUserKeyBoards();
     food.generateRandomFoodPosition();
@@ -23,8 +27,13 @@ function draw(){
         drawLinesHorizontal(context, boxSize);
         drawLinesVertical(context, boxSize);
         food.generateFood();
-        food.detectColisionWithFood(snake.positionX, snake.positionY);
         snake.drawSnake();
+        let isColliding = food.isColliding(snake.positionX, snake.positionY)
+        if(isColliding){
+            snake.isCollidingFood(isColliding);
+            beepSound.play();
+            pSpan.innerHTML = snake.size;
+        }
         context.save();
     }, interval);
 }
