@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Mocha Tests</title>
+    <link href="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="mocha"></div>
+    <script src="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.js"></script>
+    <script src="https://www.chaijs.com/chai.js"></script>
+
+    <script>
+        mocha.setup('bdd')
+    </script>
+    <script src="../objects/Snake.js"></script>
+    <script src="../objects/Food.js"></script>
+    <script src="../game.js"></script>
+    <script src="test.snake.js"></script>
+    <script>
+        mocha.checkLeaks();
+        mocha.run();
+    </script>
+</body>
+
+</html>
