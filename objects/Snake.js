@@ -11,13 +11,13 @@ class Snake {
     }
     
     dontColideWithEndOfCanvas() {
-        if(snake.positionX > this.canvasWidth){
+        if(snake.positionX >= this.canvasWidth){
             snake.positionX = 0;
         }
         if(snake.positionX < 0){
             snake.positionX = this.canvasWidth;
         }
-        if(snake.positionY > this.canvasHeight){
+        if(snake.positionY >= this.canvasHeight){
             snake.positionY = 0;
         }
         if(snake.positionY < 0){
