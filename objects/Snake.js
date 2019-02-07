@@ -97,12 +97,21 @@ class Snake {
         });
     }
 
+    dontColideWithOwnTail(){
+        this.tail.forEach((element, index) => {
+            if(element.x == this.positionX && element.y == snake.positionY && index != this.tail.length-1){
+                alert("Game Over");
+                window.location.reload();
+            }
+        });
+    }
     drawSnake(){
         this.dontColideWithEndOfCanvas();
         this.filterDirection();
         this.moveSnake();
         this.getSnakeTrail();
         this.drawTail();
+        this.dontColideWithOwnTail();
         this.context.fillRect(this.positionX, this.positionY, this.sizeInPx, this.sizeInPx);
     }
 }
