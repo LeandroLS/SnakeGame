@@ -3,6 +3,7 @@ class Food {
         this.canvasHeight = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.context = context;
+       
         this.boxSize = boxSize;
         this.randomNumberX = null;
         this.randomNumberY = null;
@@ -18,7 +19,7 @@ class Food {
     }
 
     generateFood(){
-       
+        this.context.fillStyle = "#ff5252";
         this.context.fillRect(this.randomNumberX, this.randomNumberY, this.boxSize, this.boxSize);
     }
     

@@ -1,0 +1,42 @@
+canvas { 
+    border: 1px solid #abc32f; 
+    width: 400px;
+    height: 400px;
+}
+body {
+    font-family: 'Chilanka', cursive;
+}
+.green-text{
+    color: #abc32f;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #abc32f;
+    font-weight: bold;
+}
+
+img {
+    display: inline-block;
+    width: 10%;
+}
+
+.text {
+    font-size: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+}
+
+ul li {
+    list-style: none;
+}
+
+ul li::before {
+    content: "~ ";
+}

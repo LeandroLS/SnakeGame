@@ -92,6 +92,7 @@ class Snake {
     }
 
     drawTail(){
+        this.context.fillStyle = "#abc32f";
         this.tail.forEach((element) => {
             this.context.fillRect(element.x, element.y, this.sizeInPx, this.sizeInPx);
         });
@@ -112,6 +113,7 @@ class Snake {
         this.getSnakeTrail();
         this.drawTail();
         this.dontColideWithOwnTail();
+        this.context.fillStyle = "#abc32f";
         this.context.fillRect(this.positionX, this.positionY, this.sizeInPx, this.sizeInPx);
     }
 }

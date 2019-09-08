@@ -4,6 +4,7 @@ let boxSize = 20;
 let interval = 100;
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
+context.strokeStyle = "#abc32f";
 
 let beepSound = new Audio('beep.mp3');
 
@@ -58,6 +59,7 @@ function drawLinesHorizontal(context, boxSize){
         context.beginPath();
         context.moveTo(0, boxSize);
         context.lineTo(canvasWidth, boxSize);
+
         context.stroke();
         context.fill();
         boxSize += 20;
