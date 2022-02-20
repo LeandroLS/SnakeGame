@@ -1,5 +1,6 @@
 # SnakeGame
-Joguinho da cobra criado com Javascript e HTML Canvas. :D  
-Para jogar basta clonar/baixar o projeto e abrir o index.html  
+Snake game made with Javascript and HTML Canvas. 
+
+To play, just clone/download the repository and open index.html 
 
 ![](images/gifExample.gif)
