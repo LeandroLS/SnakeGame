@@ -1,7 +1,4 @@
-class Food extends World {
-    constructor(canvasWidth, canvesHeight, boxSizeInPx, context) {
-        super(canvasWidth, canvesHeight, boxSizeInPx, context);
-    }
+class Food {
     isColliding(positionX, positionY) {
         if (positionX == this.randomNumberX && positionY == this.randomNumberY) {
             this.generateRandomFoodPosition();
@@ -12,17 +9,17 @@ class Food extends World {
         }
     }
     generateFood() {
-        this.canvasContext.fillStyle = "#ff5252";
-        this.canvasContext.fillRect(this.randomNumberX, this.randomNumberY, this.boxSizeInPx, this.boxSizeInPx);
+        this.world.canvasContext.fillStyle = "#ff5252";
+        this.world.canvasContext.fillRect(this.randomNumberX, this.randomNumberY, this.world.boxSizeInPx, this.world.boxSizeInPx);
     }
     generateRandomFoodPosition() {
-        this.randomNumberX = Math.floor(Math.random() * this.canvasWidth);
-        const restOfDivisionX = this.randomNumberX % this.boxSizeInPx;
+        this.randomNumberX = Math.floor(Math.random() * this.world.canvasWidth);
+        const restOfDivisionX = this.randomNumberX % this.world.boxSizeInPx;
         if (restOfDivisionX != 0) {
             this.randomNumberX -= restOfDivisionX;
         }
-        this.randomNumberY = Math.floor(Math.random() * this.canvasHeight);
-        const restOfDivisionY = this.randomNumberY % this.boxSizeInPx;
+        this.randomNumberY = Math.floor(Math.random() * this.world.canvasHeight);
+        const restOfDivisionY = this.randomNumberY % this.world.boxSizeInPx;
         if (restOfDivisionY != 0) {
             this.randomNumberY -= restOfDivisionY;
         }

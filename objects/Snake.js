@@ -1,6 +1,5 @@
-class Snake extends World {
-    constructor(canvasWidth, canvesHeight, boxSizeInPx, canvasContext) {
-        super(canvasWidth, canvesHeight, boxSizeInPx, canvasContext);
+class Snake {
+    constructor() {
         this.positionX = 0;
         this.positionY = 0;
         this.size = 1;
@@ -9,17 +8,17 @@ class Snake extends World {
         this.lastDirection = 'ArrowRight';
     }
     dontColideWithEndOfCanvas() {
-        if (this.positionX >= this.canvasWidth) {
-            this.positionX = -this.boxSizeInPx;
+        if (this.positionX >= this.world.canvasWidth) {
+            this.positionX = -this.world.boxSizeInPx;
         }
-        if (this.positionX < (-this.boxSizeInPx)) {
-            this.positionX = this.canvasWidth;
+        if (this.positionX < (-this.world.boxSizeInPx)) {
+            this.positionX = this.world.canvasWidth;
         }
-        if (this.positionY >= this.canvasHeight) {
-            this.positionY = -this.boxSizeInPx;
+        if (this.positionY >= this.world.canvasHeight) {
+            this.positionY = -this.world.boxSizeInPx;
         }
-        if (this.positionY < (-this.boxSizeInPx)) {
-            this.positionY = this.canvasHeight;
+        if (this.positionY < (-this.world.boxSizeInPx)) {
+            this.positionY = this.world.canvasHeight;
         }
     }
     filterDirection() {
@@ -74,10 +73,8 @@ class Snake extends World {
             this.positionY -= 20;
         }
     }
-    isCollidingFood(result) {
-        if (result) {
-            this.size += 1;
-        }
+    eatFood() {
+        this.size += 1;
     }
     getSnakeTrail() {
         this.tail.push({ x: this.positionX, y: this.positionY });
@@ -86,9 +83,9 @@ class Snake extends World {
         }
     }
     drawTail() {
-        this.canvasContext.fillStyle = "#abc32f";
+        this.world.canvasContext.fillStyle = "#abc32f";
         this.tail.forEach((element) => {
-            this.canvasContext.fillRect(element.x, element.y, this.boxSizeInPx, this.boxSizeInPx);
+            this.world.canvasContext.fillRect(element.x, element.y, this.world.boxSizeInPx, this.world.boxSizeInPx);
         });
     }
     dontColideWithOwnTail() {
@@ -106,7 +103,7 @@ class Snake extends World {
         this.getSnakeTrail();
         this.drawTail();
         this.dontColideWithOwnTail();
-        this.canvasContext.fillStyle = "#abc32f";
-        this.canvasContext.fillRect(this.positionX, this.positionY, this.boxSizeInPx, this.boxSizeInPx);
+        this.world.canvasContext.fillStyle = "#abc32f";
+        this.world.canvasContext.fillRect(this.positionX, this.positionY, this.world.boxSizeInPx, this.world.boxSizeInPx);
     }
 }

@@ -6,10 +6,12 @@ const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const context = canvas.getContext("2d");
 context!.strokeStyle = "#abc32f";
 
-const beepSound = new Audio('beep.mp3');
-
-const snake = new Snake(canvasWidth, canvasHeight, boxSizeinPx, context)
-const food = new Food(canvasWidth, canvasHeight, boxSizeinPx, context)
+const beepSound = new Audio('./assets/beep.mp3');
+const world = new World(canvasWidth, canvasHeight, boxSizeinPx, context)
+const snake = new Snake()
+const food = new Food()
+snake.world = world
+food.world = world
 
 const pSpan = document.getElementById('snakeSize');
 
@@ -17,18 +19,18 @@ function draw(): void {
     listenUserKeyBoards();
     food.generateRandomFoodPosition();
     setInterval(() => {
-        context!.clearRect(0, 0, canvasWidth, canvasHeight);
+        world.clearRect();
         drawLinesHorizontal(context, boxSizeinPx);
         drawLinesVertical(context, boxSizeinPx);
         food.generateFood();
         snake.drawSnake();
         const isColliding = food.isColliding(snake.positionX, snake.positionY)
         if (isColliding) {
-            snake.isCollidingFood(isColliding);
+            snake.eatFood();
             beepSound.play();
             pSpan!.innerHTML = snake.size.toString();
         }
-        context!.save();
+        world.save();
     }, interval);
 }
 

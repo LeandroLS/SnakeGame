@@ -10,4 +10,12 @@ class World {
         this.boxSizeInPx = boxSizeInPx
         this.canvasContext = canvasContext
     }
+
+    clearRect(): void {
+        this.canvasContext.clearRect(0,0,this.canvasWidth, this.canvasHeight)
+    }
+
+    save(): void {
+        this.canvasContext.save()
+    }
 }
