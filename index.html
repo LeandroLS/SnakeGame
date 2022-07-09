@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Snake Game</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Chilanka&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Chilanka&display=swap" rel="stylesheet">
 </head>
+
 <body onload="draw()">
     <div style="margin: 0 auto; width: 400px">
-        <h1>JavaScript <span class="green-text"> Snake </span> Game <img src="images/snakelogo.jpg"></h1>
+        <h1>JavaScript <span class="green-text"> Snake </span> Game <img src="assets/snakelogo.jpg"></h1>
         <canvas id="canvas" width="400px" height="400px"></canvas>
         <div class="text">
-            <p style="font-weight: bold">Snake Size: <span id="snakeSize">1</span></p> 
+            <p style="font-weight: bold">Snake Size: <span id="snakeSize">1</span></p>
             <p>Developed by: <a href="https://leandrols.github.io" target="_blank">Leandro Lima</a></p>
             <ul>
                 <li><a href="https://github.com/LeandroLS/SnakeGame" target="_blank">GitHub</a></li>
@@ -22,7 +24,9 @@
         </div>
     </div>
 </body>
-<script src="objects/Snake.js"></script>
-<script src="objects/Food.js"></script>
+<script src="./objects/World.js"></script>
+<script src="./objects/Snake.js"></script>
+<script src="./objects/Food.js"></script>
 <script src="game.js"></script>
+
 </html>

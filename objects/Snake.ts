@@ -1,13 +1,16 @@
+type Direction = 'ArrowRight' | 'ArrowLeft' | 'ArrowDown' | 'ArrowUp'
+type XYAxis = { x: number, y: number }
+
 class Snake {
-    constructor() {
-        this.positionX = 0;
-        this.positionY = 0;
-        this.size = 1;
-        this.tail = [{ x: 1, y: 1 }];
-        this.direction = 'ArrowRight';
-        this.lastDirection = 'ArrowRight';
-    }
-    dontColideWithEndOfCanvas() {
+    positionX = 0
+    positionY = 0
+    size = 1
+    tail: XYAxis[] = [{ x: 1, y: 1 }]
+    direction: Direction = 'ArrowRight'
+    lastDirection: Direction = 'ArrowRight'
+    world: World;
+
+    dontColideWithEndOfCanvas(): void {
         if (this.positionX >= this.world.canvasWidth) {
             this.positionX = -this.world.boxSizeInPx;
         }
@@ -21,45 +24,43 @@ class Snake {
             this.positionY = this.world.canvasHeight;
         }
     }
-    filterDirection() {
+
+    filterDirection(): void {
         if (this.direction == "ArrowUp") {
             if (this.lastDirection == "ArrowDown") {
                 this.direction = "ArrowDown";
-            }
-            else {
-                this.direction = "ArrowUp";
+            } else {
+                this.direction = "ArrowUp"
                 this.lastDirection = "ArrowUp";
             }
         }
         if (this.direction == "ArrowDown") {
             if (this.lastDirection == "ArrowUp") {
                 this.direction = "ArrowUp";
-            }
-            else {
-                this.direction = "ArrowDown";
+            } else {
+                this.direction = "ArrowDown"
                 this.lastDirection = "ArrowDown";
             }
         }
         if (this.direction == "ArrowRight") {
             if (this.lastDirection == "ArrowLeft") {
                 this.direction = "ArrowLeft";
-            }
-            else {
-                this.direction = "ArrowRight";
+            } else {
+                this.direction = "ArrowRight"
                 this.lastDirection = "ArrowRight";
             }
         }
         if (this.direction == "ArrowLeft") {
             if (this.lastDirection == "ArrowRight") {
                 this.direction = "ArrowRight";
-            }
-            else {
-                this.direction = "ArrowLeft";
+            } else {
+                this.direction = "ArrowLeft"
                 this.lastDirection = "ArrowLeft";
             }
         }
     }
-    moveSnake() {
+
+    moveSnake(): void {
         if (this.direction == "ArrowRight") {
             this.positionX += 20;
         }
@@ -73,22 +74,26 @@ class Snake {
             this.positionY -= 20;
         }
     }
-    eatFood() {
-        this.size += 1;
+    
+    eatFood(): void {
+        this.size += 1
     }
-    getSnakeTrail() {
+
+    getSnakeTrail(): void {
         this.tail.push({ x: this.positionX, y: this.positionY });
         if (this.tail.length >= (this.size + 1)) {
             this.tail.shift();
         }
     }
-    drawTail() {
+
+    drawTail(): void {
         this.world.canvasContext.fillStyle = "#abc32f";
         this.tail.forEach((element) => {
             this.world.canvasContext.fillRect(element.x, element.y, this.world.boxSizeInPx, this.world.boxSizeInPx);
         });
     }
-    dontColideWithOwnTail() {
+
+    dontColideWithOwnTail(): void {
         this.tail.forEach((element, index) => {
             if (element.x == this.positionX && element.y == this.positionY && index != this.tail.length - 1) {
                 alert("Game Over");
@@ -96,7 +101,7 @@ class Snake {
             }
         });
     }
-    drawSnake() {
+    drawSnake(): void {
         this.dontColideWithEndOfCanvas();
         this.filterDirection();
         this.moveSnake();
