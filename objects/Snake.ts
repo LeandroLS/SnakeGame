@@ -1,7 +1,3 @@
-type XYAxis = {
-    x: number
-    y: number
-}
 class Snake {
     positionX = 0
     positionY = 0
@@ -101,7 +97,7 @@ class Snake {
 
     dontColideWithOwnTail(): void {
         this.tail.forEach((element, index) => {
-            if (element.x == this.positionX && element.y == snake.positionY && index != this.tail.length - 1) {
+            if (element.x == this.positionX && element.y == this.positionY && index != this.tail.length - 1) {
                 alert("Game Over");
                 window.location.reload();
             }
@@ -118,5 +114,3 @@ class Snake {
         this.context.fillRect(this.positionX, this.positionY, this.sizeInPx, this.sizeInPx);
     }
 }
-
-const snake = new Snake();

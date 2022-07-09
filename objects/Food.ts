@@ -34,5 +34,3 @@ class Food {
         }
     }
 }
-
-const food = new Food();
