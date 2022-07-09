@@ -1,29 +1,29 @@
 type Direction = 'ArrowRight' | 'ArrowLeft' | 'ArrowDown' | 'ArrowUp'
 type XYAxis = { x: number, y: number }
 
-class Snake {
+class Snake extends World {
     positionX = 0
     positionY = 0
     size = 1
-    canvasWidth: number
-    canvasHeight: number
-    sizeInPx = 20
     tail: XYAxis[] = [{ x: 1, y: 1 }]
-    context: any
     direction: Direction = 'ArrowRight'
     lastDirection: Direction = 'ArrowRight'
 
+    constructor(canvasWidth: number, canvesHeight: number, boxSizeInPx: number, canvasContext:CanvasRenderingContext2D) {
+        super(canvasWidth, canvesHeight, boxSizeInPx, canvasContext)
+    }
+
     dontColideWithEndOfCanvas(): void {
         if (this.positionX >= this.canvasWidth) {
-            this.positionX = -this.sizeInPx;
+            this.positionX = -this.boxSizeInPx;
         }
-        if (this.positionX < (-this.sizeInPx)) {
+        if (this.positionX < (-this.boxSizeInPx)) {
             this.positionX = this.canvasWidth;
         }
         if (this.positionY >= this.canvasHeight) {
-            this.positionY = -this.sizeInPx;
+            this.positionY = -this.boxSizeInPx;
         }
-        if (this.positionY < (-this.sizeInPx)) {
+        if (this.positionY < (-this.boxSizeInPx)) {
             this.positionY = this.canvasHeight;
         }
     }
@@ -92,9 +92,9 @@ class Snake {
     }
 
     drawTail(): void {
-        this.context.fillStyle = "#abc32f";
+        this.canvasContext.fillStyle = "#abc32f";
         this.tail.forEach((element) => {
-            this.context.fillRect(element.x, element.y, this.sizeInPx, this.sizeInPx);
+            this.canvasContext.fillRect(element.x, element.y, this.boxSizeInPx, this.boxSizeInPx);
         });
     }
 
@@ -113,7 +113,7 @@ class Snake {
         this.getSnakeTrail();
         this.drawTail();
         this.dontColideWithOwnTail();
-        this.context.fillStyle = "#abc32f";
-        this.context.fillRect(this.positionX, this.positionY, this.sizeInPx, this.sizeInPx);
+        this.canvasContext.fillStyle = "#abc32f";
+        this.canvasContext.fillRect(this.positionX, this.positionY, this.boxSizeInPx, this.boxSizeInPx);
     }
 }

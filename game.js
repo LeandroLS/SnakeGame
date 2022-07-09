@@ -1,29 +1,21 @@
 const canvasWidth = 400;
 const canvasHeight = 400;
-const boxSize = 20;
+const boxSizeinPx = 20;
 const interval = 100;
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 context.strokeStyle = "#abc32f";
 const beepSound = new Audio('beep.mp3');
-const snake = new Snake();
-snake.sizeInPx = boxSize;
-snake.context = context;
-snake.canvasHeight = canvasHeight;
-snake.canvasWidth = canvasWidth;
-const food = new Food();
-food.boxSize = boxSize;
-food.context = context;
-food.canvasHeight = canvasHeight;
-food.canvasWidth = canvasWidth;
+const snake = new Snake(canvasWidth, canvasHeight, boxSizeinPx, context);
+const food = new Food(canvasWidth, canvasHeight, boxSizeinPx, context);
 const pSpan = document.getElementById('snakeSize');
 function draw() {
     listenUserKeyBoards();
     food.generateRandomFoodPosition();
     setInterval(() => {
         context.clearRect(0, 0, canvasWidth, canvasHeight);
-        drawLinesHorizontal(context, boxSize);
-        drawLinesVertical(context, boxSize);
+        drawLinesHorizontal(context, boxSizeinPx);
+        drawLinesVertical(context, boxSizeinPx);
         food.generateFood();
         snake.drawSnake();
         const isColliding = food.isColliding(snake.positionX, snake.positionY);
