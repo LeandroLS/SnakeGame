@@ -15,19 +15,18 @@ class Snake {
     lastDirection = "ArrowRight"
 
     dontColideWithEndOfCanvas(): void {
-        if (snake.positionX >= this.canvasWidth) {
-            snake.positionX = -this.sizeInPx;
+        if (this.positionX >= this.canvasWidth) {
+            this.positionX = -this.sizeInPx;
         }
-        if (snake.positionX < (-this.sizeInPx)) {
-            snake.positionX = this.canvasWidth;
+        if (this.positionX < (-this.sizeInPx)) {
+            this.positionX = this.canvasWidth;
         }
-        if (snake.positionY >= this.canvasHeight) {
-            snake.positionY = -this.sizeInPx;
+        if (this.positionY >= this.canvasHeight) {
+            this.positionY = -this.sizeInPx;
         }
-        if (snake.positionY < (-this.sizeInPx)) {
-            snake.positionY = this.canvasHeight;
+        if (this.positionY < (-this.sizeInPx)) {
+            this.positionY = this.canvasHeight;
         }
-
     }
 
     filterDirection(): void {
@@ -80,7 +79,7 @@ class Snake {
         }
     }
 
-    isCollidingFood(result): void {
+    isCollidingFood(result: boolean): void {
         if (result) {
             this.size += 1;
         }

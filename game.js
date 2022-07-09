@@ -1,12 +1,12 @@
-let canvasWidth = 400;
-let canvasHeight = 400;
-let boxSize = 20;
-let interval = 100;
-let canvas = document.getElementById("canvas");
-let context = canvas.getContext("2d");
+const canvasWidth = 400;
+const canvasHeight = 400;
+const boxSize = 20;
+const interval = 100;
+const canvas = document.getElementById("canvas");
+const context = canvas.getContext("2d");
 context.strokeStyle = "#abc32f";
 
-let beepSound = new Audio('beep.mp3');
+const beepSound = new Audio('beep.mp3');
 
 snake.sizeInPx = boxSize;
 snake.context = context;
@@ -18,7 +18,7 @@ food.context = context;
 food.canvasHeight = canvasHeight;
 food.canvasWidth = canvasWidth;
 
-let pSpan = document.getElementById('snakeSize');
+const pSpan = document.getElementById('snakeSize');
 
 function draw(){
     listenUserKeyBoards();
@@ -29,7 +29,7 @@ function draw(){
         drawLinesVertical(context, boxSize);
         food.generateFood();
         snake.drawSnake();
-        let isColliding = food.isColliding(snake.positionX, snake.positionY)
+        const isColliding = food.isColliding(snake.positionX, snake.positionY)
         if(isColliding){
             snake.isCollidingFood(isColliding);
             beepSound.play();
@@ -42,8 +42,8 @@ function draw(){
 /** Return the user key pressed that matches the array */
 function listenUserKeyBoards(){
     document.addEventListener('keydown', (event) => {
-        let justListen = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
-        let keypressed = justListen.find((element) => {
+        const justListen = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+        const keypressed = justListen.find((element) => {
             return element == event.key;
         });
         if(keypressed != null && keypressed != 'undefined'){
@@ -53,8 +53,8 @@ function listenUserKeyBoards(){
 }
 
 function drawLinesHorizontal(context, boxSize){
-    let stageWidth = canvas.offsetWidth;
-    let repeatGradeBox = stageWidth / boxSize;
+    const stageWidth = canvas.offsetWidth;
+    const repeatGradeBox = stageWidth / boxSize;
     for(let i = 0; i < repeatGradeBox; i++){
         context.beginPath();
         context.moveTo(0, boxSize);
@@ -67,8 +67,8 @@ function drawLinesHorizontal(context, boxSize){
 }
 
 function drawLinesVertical(context, boxSize){
-    let stageWidth = canvas.offsetWidth;
-    let repeatGradeBox = stageWidth / boxSize;
+    const stageWidth = canvas.offsetWidth;
+    const repeatGradeBox = stageWidth / boxSize;
     for(let i = 0; i < repeatGradeBox; i++){
         context.beginPath();
         context.moveTo(boxSize, 0);
