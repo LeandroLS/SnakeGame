@@ -1,12 +1,9 @@
-const canvasWidth = 400;
-const canvasHeight = 400;
-const boxSizeinPx = 20;
 const interval = 100;
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 context.strokeStyle = "#abc32f";
 const beepSound = new Audio('./assets/beep.mp3');
-const world = new World(canvasWidth, canvasHeight, boxSizeinPx, context);
+const world = new World(400, 400, 20, context, canvas);
 const snake = new Snake();
 const food = new Food();
 snake.world = world;
@@ -17,8 +14,8 @@ function draw() {
     food.generateRandomFoodPosition();
     setInterval(() => {
         world.clearRect();
-        drawLinesHorizontal(context, boxSizeinPx);
-        drawLinesVertical(context, boxSizeinPx);
+        world.drawLinesHorizontal();
+        world.drawLinesVertical();
         food.generateFood();
         snake.drawSnake();
         const isColliding = food.isColliding(snake.positionX, snake.positionY);
@@ -41,28 +38,4 @@ function listenUserKeyBoards() {
             snake.direction = keypressed;
         }
     });
-}
-function drawLinesHorizontal(context, boxSize) {
-    const stageWidth = canvas.offsetWidth;
-    const repeatGradeBox = stageWidth / boxSize;
-    for (let i = 0; i < repeatGradeBox; i++) {
-        context.beginPath();
-        context.moveTo(0, boxSize);
-        context.lineTo(canvasWidth, boxSize);
-        context.stroke();
-        context.fill();
-        boxSize += 20;
-    }
-}
-function drawLinesVertical(context, boxSize) {
-    const stageWidth = canvas.offsetWidth;
-    const repeatGradeBox = stageWidth / boxSize;
-    for (let i = 0; i < repeatGradeBox; i++) {
-        context.beginPath();
-        context.moveTo(boxSize, 0);
-        context.lineTo(boxSize, canvasHeight);
-        context.stroke();
-        context.fill();
-        boxSize += 20;
-    }
 }
