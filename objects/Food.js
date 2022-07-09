@@ -1,6 +1,6 @@
 class Food {
     constructor(context, boxSize, canvasWidth, canvasHeight){
-        this.canvasHeight = canvasWidth;
+        this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.context = context;
        
