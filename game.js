@@ -42,7 +42,7 @@ function listenUserKeyBoards() {
         const keypressed = justListen.find((element) => {
             return element == event.key;
         });
-        if (keypressed != null && keypressed != 'undefined') {
+        if (keypressed != null) {
             snake.direction = keypressed;
         }
     });

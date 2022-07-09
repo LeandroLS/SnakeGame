@@ -44,11 +44,11 @@ function draw(): void {
 /** Return the user key pressed that matches the array */
 function listenUserKeyBoards(): void {
     document.addEventListener('keydown', (event) => {
-        const justListen = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+        const justListen: Direction[] = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
         const keypressed = justListen.find((element) => {
             return element == event.key;
         });
-        if (keypressed != null && keypressed != 'undefined') {
+        if (keypressed != null) {
             snake.direction = keypressed;
         }
     });

@@ -1,3 +1,6 @@
+type Direction = 'ArrowRight' | 'ArrowLeft' | 'ArrowDown' | 'ArrowUp'
+type XYAxis = { x: number, y: number }
+
 class Snake {
     positionX = 0
     positionY = 0
@@ -5,10 +8,10 @@ class Snake {
     canvasWidth: number
     canvasHeight: number
     sizeInPx = 20
-    tail = [{ x: 1, y: 1}]
+    tail: XYAxis[] = [{ x: 1, y: 1 }]
     context: any
-    direction = "ArrowRight"
-    lastDirection = "ArrowRight"
+    direction: Direction = 'ArrowRight'
+    lastDirection: Direction = 'ArrowRight'
 
     dontColideWithEndOfCanvas(): void {
         if (this.positionX >= this.canvasWidth) {

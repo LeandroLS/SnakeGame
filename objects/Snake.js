@@ -5,8 +5,8 @@ class Snake {
         this.size = 1;
         this.sizeInPx = 20;
         this.tail = [{ x: 1, y: 1 }];
-        this.direction = "ArrowRight";
-        this.lastDirection = "ArrowRight";
+        this.direction = 'ArrowRight';
+        this.lastDirection = 'ArrowRight';
     }
     dontColideWithEndOfCanvas() {
         if (this.positionX >= this.canvasWidth) {
