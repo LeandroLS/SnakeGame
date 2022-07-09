@@ -35,4 +35,4 @@ class Food {
     }
 }
 
-let food = new Food();
+const food = new Food();

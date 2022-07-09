@@ -1,14 +1,20 @@
-var Snake = /** @class */ (function () {
-    function Snake() {
-        this.positionX = 0;
-        this.positionY = 0;
-        this.size = 1;
-        this.sizeInPx = 20;
-        this.tail = [{ x: 1, y: 1 }];
-        this.direction = "ArrowRight";
-        this.lastDirection = "ArrowRight";
-    }
-    Snake.prototype.dontColideWithEndOfCanvas = function () {
+type XYAxis = {
+    x: number
+    y: number
+}
+class Snake {
+    positionX = 0
+    positionY = 0
+    size = 1
+    canvasWidth: number
+    canvasHeight: number
+    sizeInPx = 20
+    tail = [{ x: 1, y: 1}]
+    context: any
+    direction = "ArrowRight"
+    lastDirection = "ArrowRight"
+
+    dontColideWithEndOfCanvas(): void {
         if (snake.positionX >= this.canvasWidth) {
             snake.positionX = -this.sizeInPx;
         }
@@ -21,46 +27,45 @@ var Snake = /** @class */ (function () {
         if (snake.positionY < (-this.sizeInPx)) {
             snake.positionY = this.canvasHeight;
         }
-    };
-    Snake.prototype.filterDirection = function () {
+
+    }
+
+    filterDirection(): void {
         if (this.direction == "ArrowUp") {
             if (this.lastDirection == "ArrowDown") {
                 this.direction = "ArrowDown";
-            }
-            else {
-                this.direction = "ArrowUp";
+            } else {
+                this.direction = "ArrowUp"
                 this.lastDirection = "ArrowUp";
             }
         }
         if (this.direction == "ArrowDown") {
             if (this.lastDirection == "ArrowUp") {
                 this.direction = "ArrowUp";
-            }
-            else {
-                this.direction = "ArrowDown";
+            } else {
+                this.direction = "ArrowDown"
                 this.lastDirection = "ArrowDown";
             }
         }
         if (this.direction == "ArrowRight") {
             if (this.lastDirection == "ArrowLeft") {
                 this.direction = "ArrowLeft";
-            }
-            else {
-                this.direction = "ArrowRight";
+            } else {
+                this.direction = "ArrowRight"
                 this.lastDirection = "ArrowRight";
             }
         }
         if (this.direction == "ArrowLeft") {
             if (this.lastDirection == "ArrowRight") {
                 this.direction = "ArrowRight";
-            }
-            else {
-                this.direction = "ArrowLeft";
+            } else {
+                this.direction = "ArrowLeft"
                 this.lastDirection = "ArrowLeft";
             }
         }
-    };
-    Snake.prototype.moveSnake = function () {
+    }
+
+    moveSnake(): void {
         if (this.direction == "ArrowRight") {
             this.positionX += 20;
         }
@@ -73,35 +78,37 @@ var Snake = /** @class */ (function () {
         if (this.direction == "ArrowUp") {
             this.positionY -= 20;
         }
-    };
-    Snake.prototype.isCollidingFood = function (result) {
+    }
+
+    isCollidingFood(result): void {
         if (result) {
             this.size += 1;
         }
-    };
-    Snake.prototype.getSnakeTrail = function () {
+    }
+
+    getSnakeTrail(): void {
         this.tail.push({ x: this.positionX, y: this.positionY });
         if (this.tail.length >= (this.size + 1)) {
             this.tail.shift();
         }
-    };
-    Snake.prototype.drawTail = function () {
-        var _this = this;
+    }
+
+    drawTail(): void {
         this.context.fillStyle = "#abc32f";
-        this.tail.forEach(function (element) {
-            _this.context.fillRect(element.x, element.y, _this.sizeInPx, _this.sizeInPx);
+        this.tail.forEach((element) => {
+            this.context.fillRect(element.x, element.y, this.sizeInPx, this.sizeInPx);
         });
-    };
-    Snake.prototype.dontColideWithOwnTail = function () {
-        var _this = this;
-        this.tail.forEach(function (element, index) {
-            if (element.x == _this.positionX && element.y == snake.positionY && index != _this.tail.length - 1) {
+    }
+
+    dontColideWithOwnTail(): void {
+        this.tail.forEach((element, index) => {
+            if (element.x == this.positionX && element.y == snake.positionY && index != this.tail.length - 1) {
                 alert("Game Over");
                 window.location.reload();
             }
         });
-    };
-    Snake.prototype.drawSnake = function () {
+    }
+    drawSnake(): void {
         this.dontColideWithEndOfCanvas();
         this.filterDirection();
         this.moveSnake();
@@ -110,7 +117,7 @@ var Snake = /** @class */ (function () {
         this.dontColideWithOwnTail();
         this.context.fillStyle = "#abc32f";
         this.context.fillRect(this.positionX, this.positionY, this.sizeInPx, this.sizeInPx);
-    };
-    return Snake;
-}());
-var snake = new Snake();
+    }
+}
+
+const snake = new Snake();
