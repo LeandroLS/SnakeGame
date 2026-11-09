@@ -10,23 +10,26 @@
     <link href="https://fonts.googleapis.com/css?family=Chilanka&display=swap" rel="stylesheet">
 </head>
 
-<body onload="draw()">
-    <div style="margin: 0 auto; width: 400px">
-        <h1>JavaScript <span class="green-text"> Snake </span> Game <img src="assets/snakelogo.jpg"></h1>
-        <canvas id="canvas" width="400px" height="400px"></canvas>
+<body>
+    <div class="game-container">
+        <h1>JavaScript <span class="green-text"> Snake </span> Game <img src="assets/snakelogo.jpg" alt="Snake game logo"></h1>
+        <canvas id="canvas"></canvas>
         <div class="text">
-            <p style="font-weight: bold">Snake Size: <span id="snakeSize">1</span></p>
-            <p>Developed by: <a href="https://leandrols.github.io" target="_blank">Leandro L.</a></p>
+            <p class="score">Snake Size: <span id="snakeSize">1</span></p>
+            <p>Developed by: <a href="https://leandrols.github.io" target="_blank" rel="noopener noreferrer">Leandro L.</a></p>
             <ul>
-                <li><a href="https://github.com/LeandroLS/SnakeGame" target="_blank">GitHub</a></li>
-                <li><a href="https://www.linkedin.com/in/silvall" target="_blank">Linkedin</a></li>
+                <li><a href="https://github.com/LeandroLS/SnakeGame" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/silvall" target="_blank" rel="noopener noreferrer">Linkedin</a></li>
             </ul>
         </div>
     </div>
+
+    <!-- A ordem importa: config.js primeiro, pois os demais dependem dele. -->
+    <script src="./config.js"></script>
+    <script src="./objects/World.js"></script>
+    <script src="./objects/Snake.js"></script>
+    <script src="./objects/Food.js"></script>
+    <script src="./game.js"></script>
 </body>
-<script src="./objects/World.js"></script>
-<script src="./objects/Snake.js"></script>
-<script src="./objects/Food.js"></script>
-<script src="game.js"></script>
 
 </html>
