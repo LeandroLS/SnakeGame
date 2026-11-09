@@ -1,41 +1,69 @@
-const interval = 100;
-const canvas = document.getElementById("canvas");
-const context = canvas.getContext("2d");
-context.strokeStyle = "#abc32f";
-const beepSound = new Audio('./assets/beep.mp3');
-const world = new World(400, 400, 20, context, canvas);
-const snake = new Snake();
-const food = new Food();
-snake.world = world;
-food.world = world;
-const pSpan = document.getElementById('snakeSize');
-function draw() {
-    listenUserKeyBoards();
+/**
+ * Ponto de entrada do jogo: cria os objetos, escuta o teclado
+ * e executa o ciclo principal de atualização e desenho.
+ */
+
+/** Teclas que controlam a cobra. */
+const CONTROL_KEYS = Object.values(DIRECTION);
+
+/** Cria os objetos do jogo e inicia o ciclo principal. */
+function startGame() {
+    const canvas = document.getElementById("canvas");
+    canvas.width = GAME_CONFIG.canvasWidth;
+    canvas.height = GAME_CONFIG.canvasHeight;
+
+    const context = canvas.getContext("2d");
+    context.strokeStyle = GAME_CONFIG.colors.grid;
+    context.lineWidth = GAME_CONFIG.gridLineWidth; 
+
+    const beepSound = new Audio(GAME_CONFIG.beepSoundPath);
+    const scoreElement = document.getElementById("snakeSize");
+
+    const world = new World(
+        GAME_CONFIG.canvasWidth,
+        GAME_CONFIG.canvasHeight,
+        GAME_CONFIG.cellSize,
+        context,
+        canvas,
+    );
+    const snake = new Snake(world);
+    const food = new Food(world);
+
+    listenUserKeyBoards(snake);
     food.generateRandomFoodPosition();
+
     setInterval(() => {
-        world.clearRect();
-        world.drawLinesHorizontal();
-        world.drawLinesVertical();
-        food.generateFood();
-        snake.drawSnake();
-        const isColliding = food.isColliding(snake.positionX, snake.positionY);
-        if (isColliding) {
+        renderFrame(world, food, snake);
+
+        if (food.isColliding(snake.positionX, snake.positionY)) {
             snake.eatFood();
             beepSound.play();
-            pSpan.innerHTML = snake.size.toString();
+            scoreElement.innerHTML = snake.size.toString();
         }
-        world.save();
-    }, interval);
+    }, GAME_CONFIG.tickIntervalMs);
 }
-/** Return the user key pressed that matches the array */
-function listenUserKeyBoards() {
-    document.addEventListener('keydown', (event) => {
-        const justListen = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
-        const keypressed = justListen.find((element) => {
-            return element == event.key;
-        });
-        if (keypressed != null) {
-            snake.direction = keypressed;
+
+/**
+ * Limpa o canvas e redesenha a grade, a comida e a cobra.
+ */
+function renderFrame(world, food, snake) {
+    world.clearRect();
+    world.drawLinesHorizontal();
+    world.drawLinesVertical();
+    food.generateFood();
+    snake.drawSnake();
+}
+
+/**
+ * Passa para a cobra a direção da seta pressionada pelo jogador.
+ * Teclas que não são setas são ignoradas.
+ */
+function listenUserKeyBoards(snake) {
+    document.addEventListener("keydown", (event) => {
+        if (CONTROL_KEYS.includes(event.key)) {
+            snake.direction = event.key;
         }
     });
 }
+
+window.addEventListener("load", startGame);

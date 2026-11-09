@@ -1,27 +1,44 @@
+/** Comida que a cobra precisa alcançar para crescer. */
 class Food {
+
+    constructor(world) {
+        this.world = world;
+        /** Posição X (px) da comida, sempre alinhada à grade. */
+        this.positionX = 0;
+        /** Posição Y (px) da comida, sempre alinhada à grade. */
+        this.positionY = 0;
+    }
+
+    /**
+     * Verifica se a cabeça da cobra está em cima da comida.
+     * ATENÇÃO: se estiver, também sorteia uma nova posição para a comida.
+
+     */
     isColliding(positionX, positionY) {
-        if (positionX == this.randomNumberX && positionY == this.randomNumberY) {
+        const isEaten = positionX == this.positionX && positionY == this.positionY;
+        if (isEaten) {
             this.generateRandomFoodPosition();
-            return true;
         }
-        else {
-            return false;
-        }
+        return isEaten;
     }
+
+    /** Desenha a comida na posição atual. */
     generateFood() {
-        this.world.canvasContext.fillStyle = "#ff5252";
-        this.world.canvasContext.fillRect(this.randomNumberX, this.randomNumberY, this.world.boxSizeInPx, this.world.boxSizeInPx);
+        this.world.fillBox(this.positionX, this.positionY, GAME_CONFIG.colors.food);
     }
+
+    /** Sorteia uma nova posição para a comida, alinhada à grade do tabuleiro. */
     generateRandomFoodPosition() {
-        this.randomNumberX = Math.floor(Math.random() * this.world.canvasWidth);
-        const restOfDivisionX = this.randomNumberX % this.world.boxSizeInPx;
-        if (restOfDivisionX != 0) {
-            this.randomNumberX -= restOfDivisionX;
-        }
-        this.randomNumberY = Math.floor(Math.random() * this.world.canvasHeight);
-        const restOfDivisionY = this.randomNumberY % this.world.boxSizeInPx;
-        if (restOfDivisionY != 0) {
-            this.randomNumberY -= restOfDivisionY;
-        }
+        this.positionX = this.randomAlignedCoordinate(this.world.canvasWidth);
+        this.positionY = this.randomAlignedCoordinate(this.world.canvasHeight);
+    }
+
+    /**
+     * Sorteia uma coordenada entre 0 e `limit` e a "encaixa" no quadradinho
+     * da grade, descartando o resto da divisão pelo tamanho do quadradinho.
+     */
+    randomAlignedCoordinate(limit) {
+        const randomValue = Math.floor(Math.random() * limit);
+        return randomValue - (randomValue % this.world.boxSizeInPx);
     }
 }
