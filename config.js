@@ -35,12 +35,6 @@ const DIRECTION = Object.freeze({
     DOWN: "ArrowDown",
     LEFT: "ArrowLeft",
     RIGHT: "ArrowRight",
-    
-    //LETAS
-    UPW: "W",
-    DOWNS: "S",
-    LEFTA: "A",
-    RIGHTD: "D"
 });
 
 /** Direção oposta de cada direção (usada para impedir que a cobra dê meia-volta). */
@@ -51,22 +45,12 @@ const OPPOSITE_DIRECTION = Object.freeze({
     [DIRECTION.LEFT]: DIRECTION.RIGHT,
     [DIRECTION.RIGHT]: DIRECTION.LEFT,
 
-    //LETRAS
-    [DIRECTION.DOWNS]: DIRECTION.UPW,
-    [DIRECTION.LEFTA]: DIRECTION.RIGHTD,
-    [DIRECTION.RIGHTD]: DIRECTION.LEFTA,
-    [DIRECTION.UPW]: DIRECTION.DOWNS,
-
 });
 
 /** Quanto cada direção desloca a cobra, em quadradinhos, em cada eixo. */
 const DIRECTION_VECTOR = Object.freeze({
     [DIRECTION.UP]: { x: 0, y: -1 },
-    [DIRECTION.UPW]: { x: 0, y: -1 },
     [DIRECTION.DOWN]: { x: 0, y: 1 },
-    [DIRECTION.DOWNS]: { x: 0, y: 1 },
     [DIRECTION.LEFT]: { x: -1, y: 0 },
-    [DIRECTION.LEFTA]: { x: -1, y: 0 },
     [DIRECTION.RIGHT]: { x: 1, y: 0 },
-    [DIRECTION.RIGHTD]: { x: 1, y: 0 },
 });
