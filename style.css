@@ -1,5 +1,5 @@
 canvas { 
-    border: 1px solid #abc32f; 
+    border: 2px solid #abc32f; 
     width: 400px;
     height: 400px;
 }
@@ -39,4 +39,49 @@ ul li {
 
 ul li::before {
     content: "~ ";
+}
+
+/* Substituem os estilos que antes estavam inline no index.html. */
+.game-container {
+    margin: 0 auto;
+    width: 400px;
+}
+
+.score {
+    font-weight: bold;
+}
+
+/* Celulares e telas estreitas */
+@media (max-width: 480px) {
+    .game-container {
+        width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    canvas {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        box-sizing: border-box; /* a borda de 1px não estoura a largura */
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .text {
+        font-size: 16px;
+    }
+}
+
+/* Celulares muito pequenos */
+@media (max-width: 360px) {
+    h1 {
+        font-size: 18px;
+    }
+
+    img {
+        width: 14%;
+    }
 }
